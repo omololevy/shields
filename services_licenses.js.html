@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/licenses.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/licenses.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Common functions and utilities for tasks related to license badges.
+ *
+ * @module
+ */
+
+import toArray from '../core/base-service/to-array.js'
+
+const licenseTypes = {
+  // permissive licenses - not public domain and not copyleft
+  permissive: {
+    spdxLicenseIds: [
+      'AFL-3.0',
+      'Apache-2.0',
+      'Artistic-2.0',
+      'BSD-2-Clause',
+      'BSD-3-Clause',
+      'BSD-3-Clause-Clear',
+      'BSL-1.0',
+      'CC-BY-4.0',
+      'ECL-2.0',
+      'ISC',
+      'MIT',
+      'MS-PL',
+      'NCSA',
+      'PostgreSQL',
+      'Zlib',
+    ],
+    aliases: ['BSD', 'Apache 2.0'],
+    color: 'green',
+    priority: '2',
+  },
+  // copyleft licenses require 'Disclose source' (https://choosealicense.com/appendix/#disclose-source)
+  // or 'Same license' (https://choosealicense.com/appendix/#same-license)
+  copyleft: {
+    spdxLicenseIds: [
+      'AGPL-1.0-only',
+      'AGPL-1.0-or-later',
+      'AGPL-3.0-only',
+      'AGPL-3.0-or-later',
+      'CC-BY-SA-4.0',
+      'EPL-1.0',
+      'EPL-2.0',
+      'EUPL-1.1',
+      'GPL-1.0-only',
+      'GPL-1.0-or-later',
+      'GPL-2.0-only',
+      'GPL-2.0-or-later',
+      'GPL-3.0-only',
+      'GPL-3.0-or-later',
+      'LGPL-2.0-only',
+      'LGPL-2.0-or-later',
+      'LGPL-2.1-only',
+      'LGPL-2.1-or-later',
+      'LGPL-3.0-only',
+      'LGPL-3.0-or-later',
+      'LPPL-1.3c',
+      'MPL-2.0',
+      'MS-RL',
+      'OFL-1.1',
+      'OSL-3.0',
+    ],
+    aliases: [
+      'GPL',
+      'GPL-2.0',
+      'GPL-3.0',
+      'GPLv2',
+      'GPLv2+',
+      'GPLv3',
+      'GPLv3+',
+      'LGPL',
+      'LGPL-2.1',
+      'LGPL-3.0',
+      'LGPLv2',
+      'LGPLv2+',
+      'LGPLv3',
+      'LGPLv3+',
+      'AGPL-3.0',
+      'AGPLv3+',
+      'MPL',
+      'MPL 1.1',
+      'MPL 2.0',
+      'EPL',
+    ],
+    color: 'orange',
+    priority: '1',
+  },
+  // public domain licenses do not require 'License and copyright notice' (https://choosealicense.com/appendix/#include-copyright)
+  'public-domain': {
+    spdxLicenseIds: ['CC0-1.0', 'Unlicense', 'WTFPL'],
+    aliases: ['CC0'],
+    color: '7cd958',
+    priority: '3',
+  },
+}
+
+/**
+ * Mapping of licenses to their corresponding color and priority.
+ *
+ * @type {object}
+ */
+const licenseToColorMap = {}
+Object.keys(licenseTypes).forEach(licenseType => {
+  const { spdxLicenseIds, aliases, color, priority } = licenseTypes[licenseType]
+  spdxLicenseIds.forEach(license => {
+    licenseToColorMap[license] = { color, priority }
+  })
+  aliases.forEach(license => {
+    licenseToColorMap[license] = { color, priority }
+  })
+})
+
+/**
+ * Maps the license to its corresponding color and priority and sorts the list of mapped licenses by priority.
+ *
+ * @param {string | string[]} licenses License or list of licenses
+ * @returns {string} Color corresponding to the license or the list of licenses
+ */
+function licenseToColor(licenses) {
+  if (!Array.isArray(licenses)) {
+    licenses = [licenses]
+  }
+
+  const [{ color }] = licenses
+    .map(license => licenseToColorMap[license])
+    .filter(Boolean)
+    .concat([{ color: 'lightgrey', priority: 0 }])
+    .sort((a, b) => b.priority - a.priority)
+
+  return color
+}
+
+/**
+ * Handles rendering concerns of license badges.
+ * Determines the message of the badge by joining the licenses in a comma-separated format.
+ * Sets the badge color to the provided value, if not provided then the color is used from licenseToColorMap.
+ *
+ * @param {object} attrs Refer to individual attributes
+ * @param {string} [attrs.license] License to render, required if badge contains only one license
+ * @param {string[]} [attrs.licenses] List of licenses to render, required if badge contains multiple licenses
+ * @param {string} [attrs.color] If provided then the badge will use this color value
+ * @returns {object} Badge with message and color properties
+ */
+function renderLicenseBadge({ license, licenses, color }) {
+  if (licenses === undefined) {
+    licenses = toArray(license)
+  }
+
+  if (licenses.length === 0) {
+    return { message: 'missing', color: 'red' }
+  }
+
+  return {
+    message: licenses.join(', '),
+    color: color || licenseToColor(licenses),
+  }
+}
+
+export { licenseToColor, renderLicenseBadge }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-badge-maker.html">badge-maker</a></li><li><a href="module-badge-maker_lib_xml.html">badge-maker/lib/xml</a></li><li><a href="module-core_base-service_base.html">core/base-service/base</a></li><li><a href="module-core_base-service_base-graphql.html">core/base-service/base-graphql</a></li><li><a href="module-core_base-service_base-json.html">core/base-service/base-json</a></li><li><a href="module-core_base-service_base-svg-scraping.html">core/base-service/base-svg-scraping</a></li><li><a href="module-core_base-service_base-xml.html">core/base-service/base-xml</a></li><li><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a></li><li><a href="module-core_base-service_errors.html">core/base-service/errors</a></li><li><a href="module-core_base-service_graphql.html">core/base-service/graphql</a></li><li><a href="module-core_base-service_resource-cache.html">core/base-service/resource-cache</a></li><li><a href="module-core_server_server.html">core/server/server</a></li><li><a href="module-core_service-test-runner_create-service-tester.html">core/service-test-runner/create-service-tester</a></li><li><a href="module-core_service-test-runner_icedfrisby-shields.html">core/service-test-runner/icedfrisby-shields</a></li><li><a href="module-core_service-test-runner_infer-pull-request.html">core/service-test-runner/infer-pull-request</a></li><li><a href="module-core_service-test-runner_runner.html">core/service-test-runner/runner</a></li><li><a href="module-core_service-test-runner_service-tester.html">core/service-test-runner/service-tester</a></li><li><a href="module-core_service-test-runner_services-for-title.html">core/service-test-runner/services-for-title</a></li><li><a href="module-core_token-pooling_token-pool.html">core/token-pooling/token-pool</a></li><li><a href="module-services_build-status.html">services/build-status</a></li><li><a href="module-services_color-formatters.html">services/color-formatters</a></li><li><a href="module-services_contributor-count.html">services/contributor-count</a></li><li><a href="module-services_downloads.html">services/downloads</a></li><li><a href="module-services_dynamic-common.html">services/dynamic-common</a></li><li><a href="module-services_dynamic_json-path.html">services/dynamic/json-path</a></li><li><a href="module-services_endpoint-common.html">services/endpoint-common</a></li><li><a href="module-services_licenses.html">services/licenses</a></li><li><a href="module-services_steam_steam-base.html">services/steam/steam-base</a></li></ul><h3>Classes</h3><ul><li><a href="module-badge-maker_lib_xml-ElementList.html">ElementList</a></li><li><a href="module-badge-maker_lib_xml-XmlElement.html">XmlElement</a></li><li><a href="module-core_base-service_base-graphql-BaseGraphqlService.html">BaseGraphqlService</a></li><li><a href="module-core_base-service_base-json-BaseJsonService.html">BaseJsonService</a></li><li><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></li><li><a href="module-core_base-service_base-xml-BaseXmlService.html">BaseXmlService</a></li><li><a href="module-core_base-service_base-yaml-BaseYamlService.html">BaseYamlService</a></li><li><a href="module-core_base-service_base-BaseService.html">BaseService</a></li><li><a href="module-core_base-service_errors-Deprecated.html">Deprecated</a></li><li><a href="module-core_base-service_errors-ImproperlyConfigured.html">ImproperlyConfigured</a></li><li><a href="module-core_base-service_errors-Inaccessible.html">Inaccessible</a></li><li><a href="module-core_base-service_errors-InvalidParameter.html">InvalidParameter</a></li><li><a href="module-core_base-service_errors-InvalidResponse.html">InvalidResponse</a></li><li><a href="module-core_base-service_errors-NotFound.html">NotFound</a></li><li><a href="module-core_base-service_errors-ShieldsRuntimeError.html">ShieldsRuntimeError</a></li><li><a href="module-core_server_server-Server.html">Server</a></li><li><a href="module-core_service-test-runner_runner-Runner.html">Runner</a></li><li><a href="module-core_service-test-runner_service-tester-ServiceTester.html">ServiceTester</a></li><li><a href="module-core_token-pooling_token-pool-Token.html">Token</a></li><li><a href="module-core_token-pooling_token-pool-TokenPool.html">TokenPool</a></li><li><a href="module-services_steam_steam-base-BaseSteamAPI.html">BaseSteamAPI</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-TUTORIAL.html">TUTORIAL</a></li><li><a href="tutorial-adding-new-config-values.html">adding-new-config-values</a></li><li><a href="tutorial-badge-urls.html">badge-urls</a></li><li><a href="tutorial-code-walkthrough.html">code-walkthrough</a></li><li><a href="tutorial-deprecating-badges.html">deprecating-badges</a></li><li><a href="tutorial-input-validation.html">input-validation</a></li><li><a href="tutorial-json-format.html">json-format</a></li><li><a href="tutorial-logos.html">logos</a></li><li><a href="tutorial-performance-testing.html">performance-testing</a></li><li><a href="tutorial-production-hosting.html">production-hosting</a></li><li><a href="tutorial-releases.html">releases</a></li><li><a href="tutorial-self-hosting.html">self-hosting</a></li><li><a href="tutorial-server-secrets.html">server-secrets</a></li><li><a href="tutorial-service-tests.html">service-tests</a></li></ul><h3>Global</h3><ul><li><a href="global.html#createNumRequestCounter">createNumRequestCounter</a></li><li><a href="global.html#isMetricWithPattern">isMetricWithPattern</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Aug 18 2022 06:16:18 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
