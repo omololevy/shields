@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: BaseYamlService</title>
+    <title>JSDoc: Module: services/package-json-helpers</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: BaseYamlService</h1>
+    <h1 class="page-title">Module: services/package-json-helpers</h1>
 
     
 
@@ -28,38 +28,100 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>
-            <span class="ancestors"><a href="module-core_base-service_base-yaml.html">core/base-service/base-yaml</a>~</span>BaseYamlService<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>Services which query a YAML endpoint should extend BaseYamlService</p></div>
-        
-    
 </header>
 
 <article>
     <div class="container-overview">
     
         
+            <div class="description"><p>Common functions and utilities for tasks related to package.json</p></div>
+        
+
+        
+
+
+<dl class="details">
 
     
-    <h2>Constructor</h2>
-    
 
-    
-    <h4 class="name" id="BaseYamlService"><span class="type-signature">(abstract) </span>new BaseYamlService<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~isDependencyMap"><span class="type-signature">(inner, constant) </span>isDependencyMap<span class="type-signature"> :Joi</span></h4>
 
 
 
 
+<div class="description">
+    <p>Joi schema for validating dependency map.</p>
+</div>
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
 
 
+        </li>
+    </ul>
 
 
 
@@ -94,7 +156,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base-yaml.js.html">core/base-service/base-yaml.js</a>, <a href="core_base-service_base-yaml.js.html#line16">line 16</a>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -110,22 +172,37 @@
 
 
 
+        
+            
+<h4 class="name" id="~isPackageJsonWithDependencies"><span class="type-signature">(inner, constant) </span>isPackageJsonWithDependencies<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi schema for validating package json object.
+Checks if the object has all the dependency types and the dependency types are valid.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
 
 
 
 
 
-
-
-
-
-
-
-
-
+<dl class="details">
 
     
-    </div>
 
     
 
@@ -139,6 +216,36 @@
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
     
 
     
@@ -150,7 +257,7 @@
     
 
     
-    <h4 class="name" id="_requestYaml"><span class="type-signature">(async) </span>_requestYaml<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="~getDependencyVersion"><span class="type-signature">(inner) </span>getDependencyVersion<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -158,8 +265,7 @@
 
 
 <div class="description">
-    <p>Request data from an upstream API serving YAML,
-parse it and validate against a schema</p>
+    <p>Determines the dependency version based on the dependency type.</p>
 </div>
 
 
@@ -211,7 +317,7 @@ parse it and validate against a schema</p>
 
             
 
-            <td class="description last"><p>Refer to individual attrs</p>
+            <td class="description last"><p>Refer to individual attributes</p>
                 <h6>Properties</h6>
                 
 
@@ -225,11 +331,7 @@ parse it and validate against a schema</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -241,42 +343,7 @@ parse it and validate against a schema</p>
 
         <tr>
             
-                <td class="name"><code>schema</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Joi</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>Joi schema to validate the response against</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>kind</code></td>
             
 
             <td class="type">
@@ -289,29 +356,40 @@ parse it and validate against a schema</p>
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last"><p>URL to request</p></td>
+            <td class="description last"><p>Wanted dependency type, defaults to prod</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>wantedDependency</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Name of the wanted dependency</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dependencies</code></td>
             
 
             <td class="type">
@@ -324,34 +402,17 @@ parse it and validate against a schema</p>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
 
-            <td class="description last"><p>Options to pass to got. See
-<a href="https://github.com/sindresorhus/got/blob/main/documentation/2-options.md">documentation</a></p></td>
+            <td class="description last"><p>Map of dependencies</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>errorMessages</code></td>
+                <td class="name"><code>devDependencies</code></td>
             
 
             <td class="type">
@@ -364,36 +425,17 @@ parse it and validate against a schema</p>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    {}
-                
-                </td>
-            
 
-            <td class="description last"><p>Key-value map of status codes
-and custom error messages e.g: <code>{ 404: 'package not found' }</code>.
-This can be used to extend or override the
-<a href="https://github.com/badges/shields/blob/master/core/base-service/check-error-response.js#L5">default</a></p></td>
+            <td class="description last"><p>Map of dev dependencies</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>encoding</code></td>
+                <td class="name"><code>peerDependencies</code></td>
             
 
             <td class="type">
@@ -406,26 +448,33 @@ This can be used to extend or override the
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last"><p>Map of peer dependencies</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionalDependencies</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
             
 
             
-                <td class="default">
-                
-                    'utf8'
-                
-                </td>
-            
 
-            <td class="description last"><p>Character encoding</p></td>
+            <td class="description last"><p>Map of optional dependencies</p></td>
         </tr>
 
     
@@ -473,19 +522,12 @@ This can be used to extend or override the
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base-yaml.js.html">core/base-service/base-yaml.js</a>, <a href="core_base-service_base-yaml.js.html#line34">line 34</a>
+        <a href="services_package-json-helpers.js.html">services/package-json-helpers.js</a>, <a href="services_package-json-helpers.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
     
 
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="https://github.com/sindresorhus/got/blob/main/documentation/2-options.md">https://github.com/sindresorhus/got/blob/main/documentation/2-options.md</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -503,13 +545,73 @@ This can be used to extend or override the
 
 
 
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error message if unknown dependency type provided</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">string</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if wanted dependency is not present</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidParameter</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Parsed response</p>
+    <p>Semver range of the wanted dependency (eg. ~2.1.6 or &gt;=3.0.0 or &lt;4.0.0)</p>
 </div>
 
 
@@ -520,7 +622,7 @@ This can be used to extend or override the
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
     </dd>

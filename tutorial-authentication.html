@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/downloads.js</title>
+    <title>JSDoc: Tutorial: authentication</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,80 +17,27 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/downloads.js</h1>
+    <h1 class="page-title">Tutorial: authentication</h1>
 
-    
-
-
-
-    
     <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module
- */
 
-import { downloadCount } from './color-formatters.js'
-import { metric } from './text-formatters.js'
+<header>
+    
 
-/**
- * Handles rendering concerns of badges that display
- * download counts, with override/customization support
- *
- * @param {object} attrs Refer to individual attrs
- * @param {number} attrs.downloads Number of downloads
- * @param {string} [attrs.interval] Period or interval the downloads occurred
- *    (e.g. day, week, month). If provided then this Will be reflected
- *    in the badge message unless overridden by other message-related parameters
- * @param {string} [attrs.version] Version or tag that was downloaded
- *    which will be reflected in the badge label (unless the label is overridden)
- * @param {string} [attrs.labelOverride] If provided then the badge label is set to this
- *    value overriding any other label-related parameters
- * @param {string} [attrs.colorOverride] If provided then the badge color is set to this
- *    value instead of the color being based on the count of downloads
- * @param {string} [attrs.messageSuffixOverride] If provided then the badge message will
- *    will have this value added to the download count, separated with a space
- * @param {string} [attrs.versionedLabelPrefix] If provided then the badge label will use
- *    this value as the prefix for versioned badges, e.g. `foobar@v1.23`. Defaults to 'downloads'
- * @returns {object} Badge
- */
-function renderDownloadsBadge({
-  downloads,
-  interval,
-  version,
-  labelOverride,
-  colorOverride,
-  messageSuffixOverride,
-  versionedLabelPrefix = 'downloads',
-}) {
-  let messageSuffix = ''
-  if (messageSuffixOverride) {
-    messageSuffix = ` ${messageSuffixOverride}`
-  } else if (interval) {
-    messageSuffix = `/${interval}`
-  }
+    <h2>authentication</h2>
+</header>
 
-  let label
-  if (labelOverride) {
-    label = labelOverride
-  } else if (version) {
-    label = `${versionedLabelPrefix}@${version}`
-  }
+<article>
+    <h1>Badges Requiring Authentication</h1>
+<p>There are two patterns for how shields.io can interact with APIs that require auth:</p>
+<ol>
+<li>We can store one token at the service level which allows us to read public data for everyone's projects, or lift a rate limit. If you are looking for information on configuring credentials for a self-hosted instance see https://github.com/badges/shields/blob/master/doc/server-secrets.md</li>
+<li>If every user needs to provide their own token, that has to be a token which can be passed to us as a query param in the badge URL. This means it must be possible to generate a key or token that can be exposed in a public github README public with no negative consequences. (i.e: that key or token only exposes public metrics).</li>
+</ol>
+<p>If every user would need to supply their own token for some particular service and it is only possible to generate a key or token which allows access to sensitive data or allows write access to resources, we can't provide an integration for this service.</p>
+</article>
 
-  return {
-    label,
-    color: colorOverride || downloadCount(downloads),
-    message: `${metric(downloads)}${messageSuffix}`,
-  }
-}
-
-export { renderDownloadsBadge }
-</code></pre>
-        </article>
-    </section>
-
-
-
+</section>
 
 </div>
 

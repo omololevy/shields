@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/color-formatters</title>
+    <title>JSDoc: Module: services/php-version</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/color-formatters</h1>
+    <h1 class="page-title">Module: services/php-version</h1>
 
     
 
@@ -34,8 +34,9 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Commonly-used functions for determining the colour to use for a badge,
-including colours based off download count, version number, etc.</p></div>
+            <div class="description"><p>Utilities relating to PHP version numbers. This compares version numbers
+using the algorithm followed by Composer (see
+https://getcomposer.org/doc/04-schema.md#version).</p></div>
         
 
         
@@ -70,7 +71,7 @@ including colours based off download count, version number, etc.</p></div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line1">line 1</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -109,7 +110,7 @@ including colours based off download count, version number, etc.</p></div>
     
 
     
-    <h4 class="name" id="~age"><span class="type-signature">(inner) </span>age<span class="signature">(date)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="~asciiVersionCompare"><span class="type-signature">(inner) </span>asciiVersionCompare<span class="signature">(v1, v2)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -117,9 +118,8 @@ including colours based off download count, version number, etc.</p></div>
 
 
 <div class="description">
-    <p>Determines the color used for a badge according to the age.
-Age is calculated as days elapsed till current date.
-The color varies from bright green to red as the age increases.</p>
+    <p>Return a negative value if v1 &lt; v2,
+zero if v1 = v2, a positive value otherwise.</p>
 </div>
 
 
@@ -155,7 +155,7 @@ The color varies from bright green to red as the age increases.</p>
 
         <tr>
             
-                <td class="name"><code>date</code></td>
+                <td class="name"><code>v1</code></td>
             
 
             <td class="type">
@@ -171,7 +171,30 @@ The color varies from bright green to red as the age increases.</p>
 
             
 
-            <td class="description last"><p>Date string</p></td>
+            <td class="description last"><p>First version for comparison</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Second version for comparison</p></td>
         </tr>
 
     
@@ -212,7 +235,7 @@ The color varies from bright green to red as the age increases.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line183">line 183</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -241,7 +264,7 @@ The color varies from bright green to red as the age increases.</p>
 
         
 <div class="param-desc">
-    <p>Badge color</p>
+    <p>Comparison result (-1, 0 or 1)</p>
 </div>
 
 
@@ -252,7 +275,7 @@ The color varies from bright green to red as the age increases.</p>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
     </dd>
@@ -270,7 +293,7 @@ The color varies from bright green to red as the age increases.</p>
     
 
     
-    <h4 class="name" id="~colorScale"><span class="type-signature">(inner) </span>colorScale<span class="signature">(steps, colors, reversed)</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="~compare"><span class="type-signature">(inner) </span>compare<span class="signature">(v1, v2)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -278,10 +301,9 @@ The color varies from bright green to red as the age increases.</p>
 
 
 <div class="description">
-    <p>Creates a callback function that determines badge color from the colors array.
-If the colors array is provided then for n steps, there should be n + 1 color.
-If the colors array is not provided then it is chosen from the default colors array
-according to the size of the steps array.</p>
+    <p>Compares two versions and return an interger based on the result.
+See https://getcomposer.org/doc/04-schema.md#version
+and https://github.com/badges/shields/issues/319#issuecomment-74411045</p>
 </div>
 
 
@@ -317,13 +339,13 @@ according to the size of the steps array.</p>
 
         <tr>
             
-                <td class="name"><code>steps</code></td>
+                <td class="name"><code>v1</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;number></span>
+<span class="param-type">string</span>
 
 
             
@@ -333,14 +355,491 @@ according to the size of the steps array.</p>
 
             
 
-            <td class="description last"><p>Steps array</p></td>
+            <td class="description last"><p>First version</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>colors</code></td>
+                <td class="name"><code>v2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Second version</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Negative value if v1 &lt; v2, zero if v1 = v2, else a positive value</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getPhpReleases"><span class="type-signature">(async, inner) </span>getPhpReleases<span class="signature">(githubApiProvider)</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Fetches the PHP release versions from cache if exists, else fetch from the souce url and save in cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>githubApiProvider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Github API provider</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line273">line 273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Promise that resolves to parsed response</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;*></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~isStable"><span class="type-signature">(inner) </span>isStable<span class="signature">(version)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Determines if a version is stable or not.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Version number</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>true if version is stable, else false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~latest"><span class="type-signature">(inner) </span>latest<span class="signature">(versions)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Determines the latest version from a list of versions.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>versions</code></td>
             
 
             <td class="type">
@@ -356,30 +855,7 @@ according to the size of the steps array.</p>
 
             
 
-            <td class="description last"><p>Colors array. If provided, should be of length steps.length + 1</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>reversed</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>If true then the colors array will be considered in reverse order</p></td>
+            <td class="description last"><p>List of versions</p></td>
         </tr>
 
     
@@ -420,7 +896,7 @@ according to the size of the steps array.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line135">line 135</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -449,168 +925,7 @@ according to the size of the steps array.</p>
 
         
 <div class="param-desc">
-    <p>Function that finds the step index by comparing value
-with steps array and returns color from colors array for the corresponding step index</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~coveragePercentage"><span class="type-signature">(inner) </span>coveragePercentage<span class="signature">(percentage)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Determines the color used for a badge by comparing percentage and floor values.
-The color varies from red to bright green as the percentage increases.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>percentage</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Percentage value</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line94">line 94</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Badge color</p>
+    <p>Latest version</p>
 </div>
 
 
@@ -639,7 +954,7 @@ The color varies from red to bright green as the percentage increases.</p>
     
 
     
-    <h4 class="name" id="~downloadCount"><span class="type-signature">(inner) </span>downloadCount<span class="signature">(downloads)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="~minorVersion"><span class="type-signature">(inner) </span>minorVersion<span class="signature">(version)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -647,560 +962,7 @@ The color varies from red to bright green as the percentage increases.</p>
 
 
 <div class="description">
-    <p>Determines the color used for a badge by comparing the download count and floor values.
-The color varies from red to bright green as the download count increases.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>downloads</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Download count</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line83">line 83</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Badge color</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~floorCount"><span class="type-signature">(inner) </span>floorCount<span class="signature">(value, yellow, yellowgreen, green)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Determines the color used for a badge by comparing the value and floor count values.
-The color can vary from red to bright green depending on the range the value lies in.
-Decreasing the value will shift the color towards red.
-Increasing the value will shift the color towards bright green.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Current value</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>yellow</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Yellow color threshold, should be greater than 0</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>yellowgreen</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Yellowgreen color threshold, should be greater than yellow</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>green</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Green color threshold, should be greater than yellowgreen</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Badge color</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~letterScore"><span class="type-signature">(inner) </span>letterScore<span class="signature">(score)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Determines the color used for a badge by matching score with grade values.
-The color varies from bright green to red as the score decreases.
-The score can be one of the following grade value: ['A', 'B', 'C', 'D', 'E'].
-The color defaults to red if the score does not matches with any of the grade values.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>score</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Score value</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line107">line 107</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Badge color</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~pep440VersionColor"><span class="type-signature">(inner) </span>pep440VersionColor<span class="signature">(version)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Determines the color used for a badge based on PEP440 versioning.</p>
+    <p>Checks if a version is valid and returns the minor version.</p>
 </div>
 
 
@@ -1243,9 +1005,6 @@ The color defaults to red if the score does not matches with any of the grade va
             
                 
 <span class="param-type">string</span>
-|
-
-<span class="param-type">number</span>
 
 
             
@@ -1255,7 +1014,7 @@ The color defaults to red if the score does not matches with any of the grade va
 
             
 
-            <td class="description last"><p>Version used for determining badge color</p></td>
+            <td class="description last"><p>Version number</p></td>
         </tr>
 
     
@@ -1296,7 +1055,7 @@ The color defaults to red if the score does not matches with any of the grade va
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line39">line 39</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -1325,7 +1084,7 @@ The color defaults to red if the score does not matches with any of the grade va
 
         
 <div class="param-desc">
-    <p>Badge color</p>
+    <p>Minor version</p>
 </div>
 
 
@@ -1354,7 +1113,7 @@ The color defaults to red if the score does not matches with any of the grade va
     
 
     
-    <h4 class="name" id="~version"><span class="type-signature">(inner) </span>version<span class="signature">(version)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="~numberedVersionData"><span class="type-signature">(inner) </span>numberedVersionData<span class="signature">(version)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -1362,7 +1121,9 @@ The color defaults to red if the score does not matches with any of the grade va
 
 
 <div class="description">
-    <p>Determines the color used for a badge based on version.</p>
+    <p>Take a version without the starting v.
+eg, '1.0.x-beta'
+Return { numbers: [1,0,something big], modifier: 2, modifierCount: 1 }</p>
 </div>
 
 
@@ -1405,9 +1166,6 @@ The color defaults to red if the score does not matches with any of the grade va
             
                 
 <span class="param-type">string</span>
-|
-
-<span class="param-type">number</span>
 
 
             
@@ -1417,7 +1175,7 @@ The color defaults to red if the score does not matches with any of the grade va
 
             
 
-            <td class="description last"><p>Version used for determining badge color</p></td>
+            <td class="description last"><p>Version number string</p></td>
         </tr>
 
     
@@ -1458,7 +1216,7 @@ The color defaults to red if the score does not matches with any of the grade va
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_color-formatters.js.html">services/color-formatters.js</a>, <a href="services_color-formatters.js.html#line17">line 17</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line40">line 40</a>
     </li></ul></dd>
     
 
@@ -1487,7 +1245,7 @@ The color defaults to red if the score does not matches with any of the grade va
 
         
 <div class="param-desc">
-    <p>Badge color</p>
+    <p>Object containing version details</p>
 </div>
 
 
@@ -1498,7 +1256,189 @@ The color defaults to red if the score does not matches with any of the grade va
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~versionReduction"><span class="type-signature">(inner) </span>versionReduction<span class="signature">(versions, phpReleases)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Reduces the list of php versions that intersect with release versions to a version range (for eg. '5.4 - 7.1', '&gt;= 5.5').</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>versions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of php versions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phpReleases</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of php release versions</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Reduced Version Range (for eg. ['5.4 - 7.1'], ['&gt;= 5.5'])</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
 
 
     </dd>
